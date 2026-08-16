@@ -132,6 +132,6 @@ Released under the [MIT License](LICENSE).
 
 <div align="center">
 
-Built by [@keshav-pro1](https://github.com/keshav-pro1)
+Built by [Keshav](https://github.com/keshav-pro1)
 
 </div>
