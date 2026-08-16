@@ -16,7 +16,7 @@ Data cleaning, feature engineering, VADER sentiment analysis, and a 16-chart int
 
 <br>
 
-![Dashboard preview](assets/dashboard-preview.png)
+![Dashboard preview](/dashboard-preview.png)
 
 <br>
 
