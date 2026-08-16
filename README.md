@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📱 Google Play Store — Data Analysis & Interactive Dashboard
+#  Google Play Store — Data Analysis & Interactive Dashboard
 
 Data cleaning, feature engineering, VADER sentiment analysis, and a 16-chart interactive Plotly dashboard, built end-to-end from the Google Play Store apps dataset.
 
@@ -10,7 +10,7 @@ Data cleaning, feature engineering, VADER sentiment analysis, and a 16-chart int
 [![Pandas](https://img.shields.io/badge/Pandas-2.0-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-**[▶ Open the live dashboard](https://keshav-pro1.github.io/Google_Analytics-Project/output/dashboard.html)** · **[📂 Browse the repo](https://github.com/keshav-pro1/Google_Analytics-Project)** · **[📓 View the notebook](notebook/creation_of_googleplaystore_da.ipynb)**
+**[   Open the live dashboard](https://keshav-pro1.github.io/Google_Analytics-Project/output/dashboard.html)** · **[   Browse the repo](https://github.com/keshav-pro1/Google_Analytics-Project)** · **[   View the notebook](notebook/creation_of_googleplaystore_da.ipynb)**
 
 </div>
 
