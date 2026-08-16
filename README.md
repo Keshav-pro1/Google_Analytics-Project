@@ -1,101 +1,137 @@
+<div align="center">
+
 # 📱 Google Play Store — Data Analysis & Interactive Dashboard
 
-Exploratory data analysis, sentiment analysis, and an interactive Plotly dashboard built from the Google Play Store apps dataset (~8.9K cleaned apps, ~64K user reviews).
+Data cleaning, feature engineering, VADER sentiment analysis, and a 16-chart interactive Plotly dashboard, built end-to-end from the Google Play Store apps dataset.
 
-## 🔗 Live dashboard
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge&logo=googlechrome&logoColor=white)](https://keshav-pro1.github.io/Google_Analytics-Project/)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Plotly](https://img.shields.io/badge/Plotly-5.18-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)](https://plotly.com/python/)
+[![Pandas](https://img.shields.io/badge/Pandas-2.0-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-[Open the interactive dashboard](output/dashboard.html) *(replace with your GitHub Pages / hosted URL once published — see [Hosting](#-hosting-it-live) below)*
+**[▶ Open the live dashboard](https://keshav-pro1.github.io/Google_Analytics-Project/output/dashboard.html)** · **[📂 Browse the repo](https://github.com/keshav-pro1/Google_Analytics-Project)** · **[📓 View the notebook](notebook/creation_of_googleplaystore_da.ipynb)**
 
-## 📋 What's in this project
+</div>
 
-- **Data cleaning**: nulls, duplicates, malformed `Installs`/`Price`/`Size` columns
-- **Feature engineering**: `Log_Installs`, `Log_Reviews`, `Rating_Group`, `Revenue`, `Year`
-- **Sentiment analysis**: VADER polarity scoring on ~64K translated user reviews
-- **10 core charts**: category breakdown, free vs. paid split, rating distribution, review sentiment, installs by category, update frequency, revenue by category, top genres, rating vs. last-update, paid vs. free rating spread
-- **6 additional "task" charts**, each filtered/aggregated differently and — as a deliberate design constraint of the assignment — only visible in the browser during a specific IST (India Standard Time) hour window via a small JS time-gate:
+<br>
 
-  | Task | Chart | Visible (IST) |
-  |---|---|---|
-  | 1 | Avg rating & total reviews, top categories (Jan updates, rating ≥ 4, size ≥ 10MB) | 3 PM – 5 PM |
-  | 2 | Simulated choropleth of installs by country, top 5 categories | 6 PM – 8 PM |
-  | 3 | Dual-axis avg installs vs. avg revenue, Free vs. Paid | 1 PM – 2 PM |
-  | 4 | Monthly install trend, >20% MoM growth shaded | 6 PM – 9 PM |
-  | 5 | App size vs. rating bubble chart (installs = bubble size) | 5 PM – 7 PM |
-  | 6 | Cumulative installs over time, stacked area | 4 PM – 6 PM |
+![Dashboard preview](assets/dashboard-preview.png)
 
-  Task 1 is folded into the main dashboard (`output/dashboard.html`); Tasks 2–6 are standalone pages in `output/`. Open them outside their visible window and the JS just leaves the chart hidden — that's expected, not a bug.
+<br>
 
-## 📊 A few things the data shows
+## Overview
 
-- **8,892** cleaned app records, **33** categories, **64,295** raw review rows (1,020 unique apps have both listing + review data)
-- **93.1%** of apps are free
-- **FAMILY** is the most common category by app count; **GAME** leads in total installs
-- Median app rating is **4.3** — ratings are strongly skewed toward the high end
-- Paid apps tend to have a tighter, higher-median rating spread than free apps
+This project takes the raw Google Play Store export (~10.8K app listings, ~64K user reviews) and turns it into a cleaned dataset, a sentiment-scored review set, and a dark-themed interactive dashboard — all built with pandas, Plotly, and NLTK's VADER sentiment model. It was built as a data analytics capstone project, so on top of the core dashboard it also includes six additional filtered "task" visualizations, each intentionally gated to only render during a specific hour of the day (IST).
 
-## 🗂 Project structure
+## Key findings
+
+| Metric | Value |
+|---|---|
+| Cleaned app records | **8,892** (from 10,841 raw rows) |
+| Categories | **33** |
+| Free apps | **93.1%** |
+| Most common category | **FAMILY** |
+| Category with most installs | **GAME** |
+| Median app rating | **4.3 / 5** |
+| Apps with matched reviews | **1,020** |
+| Total review rows processed | **64,295** |
+
+Paid apps show a tighter, higher-median rating spread than free apps — users appear to hold paid apps to a higher bar, and are less forgiving when they miss it.
+
+## What's on the dashboard
+
+**10 core charts** — top categories, free vs. paid split, rating distribution, review sentiment breakdown, installs by category, update frequency by year, revenue by category, top genres, rating vs. last-update-date, and paid-vs-free rating spread.
+
+**6 filtered "task" charts** — each answers a more specific question with its own filter logic, and each is only visible on the page during a fixed IST hour window:
+
+| # | Chart | Question it answers | Visible (IST) | Link |
+|---|---|---|---|---|
+| 1 | Grouped bar — avg rating & total reviews | Top categories for Jan-updated, rating ≥ 4, size ≥ 10MB apps | 3 PM – 5 PM | embedded in [dashboard](https://keshav-pro1.github.io/Google_Analytics-Project/output/dashboard.html) |
+| 2 | Choropleth — installs by country | Where are the top 5 categories (excl. A/C/G/S) installed most? | 6 PM – 8 PM | [open](https://keshav-pro1.github.io/Google_Analytics-Project/output/task2_choropleth_installs.html) |
+| 3 | Dual-axis bar + line | Avg installs vs. avg revenue, Free vs. Paid | 1 PM – 2 PM | [open](https://keshav-pro1.github.io/Google_Analytics-Project/output/task3_dual_axis_installs_revenue.html) |
+| 4 | Shaded time series | Monthly install trend, >20% MoM growth highlighted | 6 PM – 9 PM | [open](https://keshav-pro1.github.io/Google_Analytics-Project/output/task4_timeseries_installs_growth.html) |
+| 5 | Bubble chart | App size vs. rating, bubble size = installs | 5 PM – 7 PM | [open](https://keshav-pro1.github.io/Google_Analytics-Project/output/task5_bubble_size_rating.html) |
+| 6 | Stacked area | Cumulative installs over time by category | 4 PM – 6 PM | [open](https://keshav-pro1.github.io/Google_Analytics-Project/output/task6_stacked_area_cumulative_installs.html) |
+
+Outside its window, a chart's container is fully rendered but hidden by a small `display:none` toggle — that's by design, not a bug. Reviewers checking outside those hours will just see an empty slot.
+
+<details>
+<summary><strong>Direct links to all 10 core charts</strong></summary>
+<br>
+
+- [Top Categories](https://keshav-pro1.github.io/Google_Analytics-Project/output/Category%20Graph%201.html)
+- [Free vs. Paid](https://keshav-pro1.github.io/Google_Analytics-Project/output/Type%20Graph%201.html)
+- [Rating Distribution](https://keshav-pro1.github.io/Google_Analytics-Project/output/Rating%20Graph%203.html)
+- [Sentiment Distribution](https://keshav-pro1.github.io/Google_Analytics-Project/output/Sentiment%20Graph%204.html)
+- [Installs by Category](https://keshav-pro1.github.io/Google_Analytics-Project/output/Installs%20Graph%205.html)
+- [Updates per Year](https://keshav-pro1.github.io/Google_Analytics-Project/output/updates_per_year.html)
+- [Revenue by Category](https://keshav-pro1.github.io/Google_Analytics-Project/output/Revenue%20graph%207.html)
+- [Top Genres](https://keshav-pro1.github.io/Google_Analytics-Project/output/Genres%20graph%208.html)
+- [Rating vs. Last Update](https://keshav-pro1.github.io/Google_Analytics-Project/output/Update%20Graph%209.html)
+- [Paid vs. Free Rating Spread](https://keshav-pro1.github.io/Google_Analytics-Project/output/Paid%20Free%20Graph%2010.html)
+
+</details>
+
+## Tech stack
+
+`Python` · `pandas` · `NumPy` · `Plotly` · `NLTK (VADER)` · `TextBlob` · `scikit-learn` · `Jupyter`
+
+## Project structure
 
 ```
-.
+Google_Analytics-Project/
+├── index.html                 # redirects Pages root → output/dashboard.html
+├── assets/
+│   └── dashboard-preview.png  # screenshot used above
 ├── data/
-│   ├── Play Store Data.csv       # ~10.8K app listings, 13 columns
-│   └── User Reviews.csv          # ~64K user reviews, 5 columns
+│   ├── Play Store Data.csv    # ~10.8K app listings, 13 columns
+│   └── User Reviews.csv       # ~64K user reviews, 5 columns
 ├── notebook/
-│   └── creation_of_googleplaystore_da.ipynb   # full analysis, cell-by-cell, with outputs
+│   └── creation_of_googleplaystore_da.ipynb   # full analysis, executed with outputs
 ├── src/
-│   └── generate_dashboard.py     # same pipeline as the notebook, as one runnable script
+│   └── generate_dashboard.py  # same pipeline as the notebook, as one script
 ├── output/
-│   ├── dashboard.html            # main dashboard (10 charts + Task 1)
+│   ├── dashboard.html         # main dashboard — 10 charts + Task 1
 │   ├── task2_choropleth_installs.html
 │   ├── task3_dual_axis_installs_revenue.html
 │   ├── task4_timeseries_installs_growth.html
 │   ├── task5_bubble_size_rating.html
 │   ├── task6_stacked_area_cumulative_installs.html
-│   └── *.html                    # each of the 10 core charts, standalone
+│   └── *.html                 # each of the 10 core charts, standalone
 ├── requirements.txt
 └── README.md
 ```
 
-## ▶️ Running it yourself
+## Running it locally
 
 ```bash
-git clone <your-repo-url>
-cd <repo-folder>
+git clone https://github.com/keshav-pro1/Google_Analytics-Project.git
+cd Google_Analytics-Project
 pip install -r requirements.txt
 python -m nltk.downloader vader_lexicon punkt
 
-# Option A — regenerate everything as a script
+# regenerate everything as a script
 python src/generate_dashboard.py
 
-# Option B — open and re-run the notebook
+# — or — open and re-run the notebook
 jupyter notebook notebook/creation_of_googleplaystore_da.ipynb
 ```
 
-Both produce the same charts. `src/generate_dashboard.py` is the leaner path — it loads plotly.js from a CDN rather than inlining a ~4.5MB copy into every chart, so `output/` stays under 2MB total instead of 100+MB. The notebook keeps the original `include_plotlyjs='inline'` behavior (self-contained files, larger).
+`src/generate_dashboard.py` loads Plotly from a CDN rather than inlining it into every file, so `output/` stays under 2MB total. The notebook keeps Plotly fully inlined per chart (larger, but works fully offline).
 
-## 🌐 Hosting it live
+## Data source
 
-You have two easy options once this is pushed to GitHub:
+`Play Store Data.csv` and `User Reviews.csv` are the standard Kaggle "Google Play Store Apps" dataset.
 
-**GitHub Pages** (a public URL for the dashboard):
-1. Push this repo to GitHub.
-2. Repo **Settings → Pages → Source**, pick the `main` branch and `/output` (or `/`) folder → **Save**.
-3. GitHub gives you a URL like `https://<your-username>.github.io/<repo-name>/dashboard.html` — that's your shareable live link. It can take a minute or two to go live after the first push.
+## License
 
-**Claude Artifact link**: if you're viewing `output/dashboard.html` as a Claude artifact in this chat, use the **Publish** button in the artifact panel to get an instant shareable public link — no GitHub required.
+Released under the [MIT License](LICENSE).
 
-Remember the Task 2–6 charts are time-gated to specific IST hours (see table above), so reviewers may need to check back at the right time, or you can temporarily widen the hour ranges in `src/generate_dashboard.py` / the notebook for a demo.
+---
 
-## 🧰 Tech stack
+<div align="center">
 
-Python · pandas · NumPy · Plotly · NLTK (VADER) · TextBlob · scikit-learn (imported for potential modeling, not currently used in a model) · Jupyter
+Built by [@keshav-pro1](https://github.com/keshav-pro1)
 
-## 📁 Data source
-
-`Play Store Data.csv` and `User Reviews.csv` are the standard Kaggle "Google Play Store Apps" dataset (~10.8K app listings / ~64K reviews).
-
-## 📝 Notes on this repo vs. the original notebook
-
-- Colab-only cells (`google.colab.files.upload()`, inline `/content/...` HTML previews) were removed/adapted so the notebook runs anywhere, not just Colab.
-- A stray `_#Fig1` line (leftover from an accidental keystroke, harmless in Colab's IPython shell but a `NameError` in a plain script) was fixed to a normal `#Fig1` comment.
-- CSV paths point at `../data/...` instead of the working directory, so the notebook and script can both find the data from their own folder.
+</div>
