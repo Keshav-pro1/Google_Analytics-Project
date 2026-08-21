@@ -12,7 +12,7 @@
     const istHour = parseInt(new Intl.DateTimeFormat('en-US', {
         hour: 'numeric', hour12: false, timeZone: 'Asia/Kolkata'
     }).format(new Date()));
-    el.style.display = (istHour >= 17 && istHour < 19) ? 'block' : 'none';
+    el.style.display = (istHour >= 17 && istHour < 23) ? 'block' : 'none';
   }
   window.addEventListener('load', checkVisibility_task5_bubble_size_rating_html);
   setInterval(checkVisibility_task5_bubble_size_rating_html, 60000);
